@@ -37,22 +37,40 @@ a{color:#1A3F78}a:hover{color:#E8467B}
 
 <style>img{max-width:100%}@media (max-width:640px){.wrap,.col{padding-left:16px!important;padding-right:16px!important}.prose{font-size:18px}}</style>
 <style>.card[hidden]{display:none!important}</style>
+<style>
+.burger{display:none}
+@media (max-width: 860px){
+ .site-hdr{position:sticky;top:0;z-index:50;background:#FAF7F2;box-shadow:0 2px 14px rgba(26,63,120,.08)}
+ .hdr{flex-wrap:wrap!important;padding-top:10px!important;padding-bottom:10px!important;gap:0!important}
+ .hdr > a img{height:38px!important}
+ .burger{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;border:0;background:#FFFFFF;color:#1A3F78;cursor:pointer;margin-left:auto;box-shadow:0 2px 8px rgba(26,63,120,.08)}
+ .burger .i-close{display:none}
+ .site-hdr.open .burger .i-open{display:none}
+ .site-hdr.open .burger .i-close{display:block}
+ .hdr .nav,.hdr .hdr-right{display:none!important;width:100%}
+ .site-hdr.open .nav{display:flex!important;flex-direction:column;gap:0!important;padding:14px 0 6px}
+ .site-hdr.open .nav a{padding:12px 0;font-size:18px;border-bottom:1px solid #ECE6DB}
+ .site-hdr.open .hdr-right{display:flex!important;flex-direction:column;align-items:stretch!important;gap:12px!important;padding:14px 0 12px}
+ .site-hdr.open .hdr-right .btn{width:100%;box-sizing:border-box}
+}
+</style>
 </head>
 <body>
 
 <div style="font-family: 'PT Sans', sans-serif; color: #2B3550; background: #FAF7F2">
 
-<header style="background: #FAF7F2">
-<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; padding-top: 22px; padding-bottom: 22px">
+<header class="site-hdr" style="background: #FAF7F2">
+<div class="wrap hdr" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; padding-top: 22px; padding-bottom: 22px">
 <a href="https://is.school/" aria-label="Innovative School — на главную сайта" href="https://is.school/page260916503.html" style="display: flex; align-items: center">
 <img src="img/logo.webp" alt="Innovative School" style="height: 44px; width: auto; display: block">
 </a>
+<button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false"><svg class="i-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><svg class="i-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
 <nav class="nav" aria-label="Меню блога" style="display: flex; flex-wrap: wrap; gap: 8px 32px; font-size: 16px">
 <a href="https://is.school/">О школе</a>
 <a href="./" aria-current="page" style="color: #E8467B">Блог</a>
 <a href="#contacts">Контакты</a>
 </nav>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+<div class="hdr-right" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
 <a href="tel:+77015009930" style="font-weight: 700; font-size: 16px; text-decoration: none; white-space: nowrap">+7 701 500 99 30</a>
 <a href="https://is.school/page260916503.html#zapis" class="btn" style="min-height: 46px; padding: 0 24px; font-size: 15px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.2 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.1-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"></path></svg>Записаться на экскурсию</a>
 </div>
@@ -158,7 +176,7 @@ a{color:#1A3F78}a:hover{color:#E8467B}
 </div>
 
 <div style="display: flex; justify-content: center; margin-top: 48px">
-<button type="button" class="btn3" onClick="{{showMore}}">Показать ещё<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></button>
+<button type="button" class="btn3" id="more-btn">Показать ещё<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></button>
 </div>
 
 </section>
@@ -224,6 +242,12 @@ a{color:#1A3F78}a:hover{color:#E8467B}
 
 <script>
 document.getElementById('more-btn').addEventListener('click',function(){document.querySelectorAll('.card.more').forEach(function(e){e.hidden=false});this.parentNode.remove();});
+</script>
+<script>
+(function(){var h=document.querySelector('.site-hdr'),b=h&&h.querySelector('.burger');if(!b)return;
+function set(o){h.classList.toggle('open',o);b.setAttribute('aria-expanded',o?'true':'false');b.setAttribute('aria-label',o?'Закрыть меню':'Открыть меню');}
+b.addEventListener('click',function(){set(!h.classList.contains('open'))});
+h.querySelectorAll('.nav a, .hdr-right a').forEach(function(a){a.addEventListener('click',function(){set(false)})});})();
 </script>
 </body>
 </html>
